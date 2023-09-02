@@ -4,6 +4,7 @@ const receiptControllers = require('../controllers/receiptControllers');
 
 const path = "/receipts"
 
+router.get(`${path}`, receiptControllers.getAllReceipts);
 router.get(`${path}/:bahan`, receiptControllers.getReceiptByBahanWithConstraints);
 
 module.exports = router;

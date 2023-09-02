@@ -1,6 +1,14 @@
 const receiptServices = require('../services/receiptServices');
 const bahanServices = require('../services/bahanServices');
 let receiptControllers = {
+    getAllReceipts: async (req, res) => {
+        try {
+            const receipts = await receiptServices.getAllReceipts();
+            receipts.success ? res.status(200).json(receipts) : res.status(400).json(receipts);
+        } catch (err) {
+            next(err)
+        }
+    },
     getReceiptByBahanWithConstraints: async (req, res) => {
         try {
             const { bahan } = req.params;

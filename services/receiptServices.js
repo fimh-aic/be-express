@@ -6,7 +6,7 @@ const receipt_user_alergiModel = models.receipt_user_alergi;
 const bahan_resepModel = models.bahan_resep;
 
 let receiptServices = {
-    getAll: async () => {
+    getAllReceipts: async () => {
         try {
             return await receiptModel.findAll();
         } catch (err) {
