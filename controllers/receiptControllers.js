@@ -52,6 +52,7 @@ let receiptControllers = {
         contentType: photo.mimetype,
       });
       const result = await mlServices.recognize(form);
+      console.log("recognition: ", result?.data);
       if (!result.status === 200) return res.status(400).json(result);
       const nutrition = await mlServices.getNutrition(
         converter.convertToEnglish(result.data.result)
