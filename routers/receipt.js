@@ -14,8 +14,7 @@ const fileFilter = (req, file, cb) => {
 
 const multerStorage = multer.memoryStorage();
 const upload = multer({
-  storage: multerStorage,
-  fileFilter: fileFilter,
+  storage: multerStorage
 });
 
 const uploadPhoto = upload.single("photo");
