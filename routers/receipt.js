@@ -7,10 +7,10 @@ const path = "/receipts";
 const fileFilter = (req, file, cb) => {
   console.log(file);
   console.log(req.body.fileName);
-  // if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-  //   cb(null, true);
-  // } else {
-  //   cb(new Error("File type not supported"), false);
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(new Error("File type not supported"), false);
     cb(null, true);
   }
 };
@@ -18,7 +18,7 @@ const fileFilter = (req, file, cb) => {
 const multerStorage = multer.memoryStorage();
 const upload = multer({
   storage: multerStorage,
-  fileFilter: fileFilter
+  fileFilter: fileFilter,
 });
 
 const uploadPhoto = upload.single("photo");
