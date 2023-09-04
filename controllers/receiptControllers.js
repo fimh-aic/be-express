@@ -2,6 +2,7 @@ const receiptServices = require("../services/receiptServices");
 const bahanServices = require("../services/bahanServices");
 const mlServices = require("../services/mlServices");
 const FormData = require("form-data");
+const converter = require("../utils/converter");
 
 let receiptControllers = {
   getAllReceipts: async (req, res) => {
@@ -51,13 +52,34 @@ let receiptControllers = {
         contentType: photo.mimetype,
       });
       const result = await mlServices.recognize(form);
+      if (!result.status === 200) return res.status(400).json(result);
+      const nutrition = await mlServices.getNutrition(
+        converter.convertToEnglish(result.data.result)
+      );
+      if (!nutrition.success === 200) return res.status(400).json(nutrition);
       let response = {
         result: result.data.result,
         confidence: result.data.confidence,
+        nutrition: nutrition.data,
       };
-      result.status === 200
-        ? res.status(200).json(response)
-        : res.status(400).json(result);
+      res.status(200).json(response);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+  recommendation: async (req, res) => {
+    try {
+      const { query } = req.query;
+      if (!query) return res.status(400).json({ message: "Tambahkan query" });
+      const result = await mlServices.recommend(
+        converter.convertToIndonesian(query)
+      );
+      if (!result.success) return res.status(400).json(result);
+      let response = {
+        ...result.data,
+      };
+      res.status(200).json(response);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);

@@ -6,8 +6,11 @@ const path = "/receipts";
 
 const fileFilter = (req, file, cb) => {
   console.log(file);
-  console.log(req.body.fileName);
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/png"
+  ) {
     cb(null, true);
   } else {
     cb(new Error("File type not supported"), false);
@@ -28,5 +31,6 @@ router.post(
   uploadPhoto,
   receiptControllers.recognizeImage
 );
+router.get(`${path}/recommend`, receiptControllers.recommendation);
 
 module.exports = router;
