@@ -5,6 +5,7 @@ const multer = require("multer");
 const path = "/receipts";
 
 const fileFilter = (req, file, cb) => {
+  console.log(file)
   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     cb(null, true);
   } else {
@@ -14,7 +15,8 @@ const fileFilter = (req, file, cb) => {
 
 const multerStorage = multer.memoryStorage();
 const upload = multer({
-  storage: multerStorage
+  storage: multerStorage,
+  fileFilter: fileFilter
 });
 
 const uploadPhoto = upload.single("photo");
