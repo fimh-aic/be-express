@@ -18,6 +18,7 @@ let converter = {
       sawi: "mustard greens",
       susu: "milk",
       wortel: "carrot",
+      potate: "potato",
     };
 
     return translation[classLabel] || classLabel;
@@ -41,6 +42,7 @@ let converter = {
       "mustard greens": "sawi",
       milk: "susu",
       carrot: "wortel",
+      potate: "kentang",
     };
 
     return translation[classLabel] || classLabel;
