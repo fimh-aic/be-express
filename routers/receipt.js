@@ -5,11 +5,13 @@ const multer = require("multer");
 const path = "/receipts";
 
 const fileFilter = (req, file, cb) => {
-  console.log(file)
-  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+  console.log(file);
+  console.log(req.body.fileName);
+  // if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+  //   cb(null, true);
+  // } else {
+  //   cb(new Error("File type not supported"), false);
     cb(null, true);
-  } else {
-    cb(new Error("File type not supported"), false);
   }
 };
 
