@@ -75,9 +75,9 @@ let receiptControllers = {
       const result = await mlServices.recommend(
         converter.convertToIndonesian(query)
       );
-      if (!result.success) return res.status(400).json(result);
+      if (!result.status === 200) return res.status(400).json(result);
       let response = {
-        ...result.data,
+        recommendations: result.data.result,
       };
       res.status(200).json(response);
     } catch (err) {
